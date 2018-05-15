@@ -1,15 +1,22 @@
 
 
 class Pizza{
-    constructor(ingredients) {
+    constructor(size, ingredients) {
+        this.size = size;
         this.ingredients = ingredients || 'cheese';
     };
 
     calculateCost() {
-        let cost = 10;
-        if(this.ingredients === 'cheese') {
-            cost = 10;
-        } else {
+        let cost = 0;
+        if(this.size === 'small') {
+            cost += 8.99;
+        } else if( this.size === 'medium') {
+            cost += 10.99;
+        } else if(this.size === 'large') {
+            cost += 12.99;
+        }
+
+        if(this.ingredients !== 'cheese') {
             let numberOfIngredients = this.ingredients.length;
             cost += (numberOfIngredients*.99);
         }
@@ -18,9 +25,16 @@ class Pizza{
 };
 
 
-const one = new Pizza();
-const two = new Pizza(['sausage', 'pepperoni']);
-const three = new Pizza(['olives', 'sausage', 'anchovies']);
+const one = new Pizza('medium');
+const two = new Pizza('small', ['sausage', 'pepperoni']);
+const three = new Pizza('large', ['olives', 'sausage', 'anchovies']);
+
+console.log(one.calculateCost());
+console.log(two.calculateCost());
+console.log(three.calculateCost());
+
+
+
 
 
 class Order{
@@ -37,6 +51,7 @@ class Order{
         return totalCost;
     }
 }
+
 
 const newOrder = new Order([one, two, three]);
 
